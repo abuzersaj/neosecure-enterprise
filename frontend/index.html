@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>NeoSecure – AI Self-Healing Security Console</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grid-bg"></div>
+
+    <div class="app-shell">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo-mark">NS</div>
+          <div class="logo-text">
+            <div class="logo-title">NeoSecure</div>
+            <div class="logo-subtitle">AI Self-Healing Framework</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <div class="nav-section-label">Core</div>
+          <button class="nav-item active" data-page="overview">
+            <span class="nav-dot"></span>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-item" data-page="security">
+            <span class="nav-dot"></span>
+            <span>Security</span>
+          </button>
+          <button class="nav-item" data-page="monitoring">
+            <span class="nav-dot"></span>
+            <span>Monitoring</span>
+          </button>
+          <button class="nav-item" data-page="management">
+            <span class="nav-dot"></span>
+            <span>Management</span>
+          </button>
+
+          <div class="nav-section-label">Product</div>
+          <button class="nav-item" data-page="about">
+            <span class="nav-dot"></span>
+            <span>About</span>
+          </button>
+          <button class="nav-item" data-page="contact">
+            <span class="nav-dot"></span>
+            <span>Contact</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="built-by-label">Built by</div>
+          <div class="built-by-name">Abuzer Sajid</div>
+          <div class="built-by-role">Cybersecurity Engineer</div>
+          <div class="built-by-contact">
+            <span>📞 +91-96110-38535</span>
+            <span>📧 abuzersajidahamadumri@gmail.com</span>
+            <span>📍 Bengaluru, India</span>
+          </div>
+          <div class="sidebar-version">v1.0 • AI Self-Healing Security</div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main">
+        <!-- Top bar -->
+        <header class="topbar">
+          <div class="topbar-left">
+            <div class="topbar-kicker">Security Dashboard</div>
+            <div class="topbar-title">
+              AI Self-Healing Security Dashboard
+            </div>
+            <div class="topbar-subtitle">
+              Real-time threat detection & autonomous remediation for your APIs,
+              edge-WAF and microservices.
+            </div>
+          </div>
+          <div class="topbar-right">
+            <div class="status-chip status-chip-online">
+              <span class="status-dot"></span>
+              <span id="engine-status-text">Engine online</span>
+            </div>
+            <div class="status-chip">
+              <span class="status-label">System Active</span>
+              <span id="system-time">--:--:--</span>
+            </div>
+            <div class="user-pill">
+              <div class="user-avatar">AS</div>
+              <div class="user-meta">
+                <div class="user-name">Abuzer Sajid</div>
+                <div class="user-role">Security Administrator</div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- OVERVIEW PAGE -->
+        <section class="page page-active" id="page-overview">
+          <div class="page-header">
+            <div>
+              <h2>Overview</h2>
+              <p>
+                Live view of your NeoSecure self-healing framework – designed
+                for enterprise environments.
+              </p>
+            </div>
+            <div class="page-header-right">
+              <div class="tag-pill">
+                Backend:
+                <span id="backend-url">http://127.0.0.1:8000</span>
+              </div>
+              <div class="tag-pill tag-pill-live">Mode: Live</div>
+            </div>
+          </div>
+
+          <!-- Metrics row -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-label">Total Events</span>
+                <span class="metric-chip metric-chip-primary">Live</span>
+              </div>
+              <div class="metric-value" id="metric-total">0</div>
+              <div class="metric-footnote">
+                All ingested requests observed by the self-healing engine.
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-label">Blocked / Healed</span>
+                <span class="metric-chip metric-chip-safe">Protected</span>
+              </div>
+              <div class="metric-value" id="metric-blocked">0</div>
+              <div class="metric-footnote">
+                Requests classified as attacks and automatically intercepted.
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-label">Attack Ratio</span>
+                <span class="metric-chip metric-chip-neutral">Risk</span>
+              </div>
+              <div class="metric-value" id="metric-ratio">0%</div>
+              <div class="metric-footnote">
+                Attacks vs total traffic – higher values indicate probing.
+              </div>
+            </div>
+
+            <div class="metric-card metric-card-health">
+              <div class="metric-header">
+                <span class="metric-label">Engine Health</span>
+              </div>
+              <div class="metric-health">
+                <div
+                  class="health-indicator"
+                  id="engine-health-indicator"
+                ></div>
+                <div class="metric-health-text">
+                  <div id="engine-health-label">Healthy</div>
+                  <div class="metric-health-meta">
+                    Last sync:&nbsp;<span id="last-sync">—</span>
+                  </div>
+                </div>
+              </div>
+              <div class="metric-footnote">
+                Edge agents stream payloads into /ingest; decisions are
+                returned in milliseconds.
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle row -->
+          <div class="middle-grid">
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Threat Activity Timeline</h3>
+                  <p>
+                    Critical, high and medium severity activity across recent
+                    events.
+                  </p>
+                </div>
+                <div class="pill-switch">
+                  <button
+                    class="pill-switch-btn pill-switch-btn-active"
+                    data-range="24h"
+                  >
+                    24h
+                  </button>
+                  <button class="pill-switch-btn" data-range="7d">7d</button>
+                  <button class="pill-switch-btn" data-range="30d">
+                    30d
+                  </button>
+                </div>
+              </div>
+              <div class="sparkline">
+                <div class="sparkline-track"></div>
+                <div class="sparkline-layer sparkline-layer-critical"></div>
+                <div class="sparkline-layer sparkline-layer-high"></div>
+                <div class="sparkline-layer sparkline-layer-medium"></div>
+              </div>
+              <div class="sparkline-legend">
+                <span class="legend-dot legend-critical"></span> Critical
+                <span class="legend-dot legend-high"></span> High
+                <span class="legend-dot legend-medium"></span> Medium
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Vulnerability Distribution</h3>
+                  <p>Static severity profile (can be wired to a scanner).</p>
+                </div>
+              </div>
+              <div class="vuln-grid">
+                <div class="vuln-chip vuln-chip-critical">
+                  <div class="vuln-count">12</div>
+                  <div class="vuln-label">Critical</div>
+                </div>
+                <div class="vuln-chip vuln-chip-high">
+                  <div class="vuln-count">18</div>
+                  <div class="vuln-label">High</div>
+                </div>
+                <div class="vuln-chip vuln-chip-medium">
+                  <div class="vuln-count">10</div>
+                  <div class="vuln-label">Medium</div>
+                </div>
+                <div class="vuln-chip vuln-chip-low">
+                  <div class="vuln-count">7</div>
+                  <div class="vuln-label">Low</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom row -->
+          <div class="bottom-grid">
+            <div class="panel panel-table">
+              <div class="panel-header">
+                <div>
+                  <h3>Recent Security Alerts</h3>
+                  <p>Latest events classified by the self-healing engine.</p>
+                </div>
+                <button class="primary-btn" id="refresh-alerts-btn">
+                  Refresh
+                </button>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="alerts-table">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Path</th>
+                      <th>Method</th>
+                      <th>Issue</th>
+                      <th>Action</th>
+                      <th>Severity</th>
+                      <th>Source</th>
+                    </tr>
+                  </thead>
+                  <tbody id="alerts-body">
+                    <tr>
+                      <td colspan="7" class="empty-state">
+                        No alerts yet – send traffic to
+                        <code>POST /ingest</code> and events will appear here in
+                        real time.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Agent Status</h3>
+                  <p>
+                    Connected sensors across servers, containers and endpoints.
+                  </p>
+                </div>
+              </div>
+              <div class="agent-list">
+                <div class="agent-item">
+                  <div class="agent-name">Windows-Server-01</div>
+                  <div class="agent-meta">
+                    <span class="agent-pill agent-pill-online">Online</span>
+                    <span>Last scan: 2 min ago</span>
+                    <span>Threats: 3</span>
+                  </div>
+                </div>
+                <div class="agent-item">
+                  <div class="agent-name">Linux-Web-01</div>
+                  <div class="agent-meta">
+                    <span class="agent-pill agent-pill-online">Online</span>
+                    <span>Last scan: 5 min ago</span>
+                    <span>Threats: 1</span>
+                  </div>
+                </div>
+                <div class="agent-item">
+                  <div class="agent-name">AWS-EC2-Prod</div>
+                  <div class="agent-meta">
+                    <span class="agent-pill agent-pill-online">Online</span>
+                    <span>Last scan: 8 min ago</span>
+                    <span>Threats: 0</span>
+                  </div>
+                </div>
+                <div class="agent-item">
+                  <div class="agent-name">MacOS-Developer</div>
+                  <div class="agent-meta">
+                    <span class="agent-pill agent-pill-offline">Offline</span>
+                    <span>Last scan: 2 hours ago</span>
+                    <span>Threats: 2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECURITY PAGE -->
+        <section class="page" id="page-security">
+          <div class="page-header">
+            <div>
+              <h2>Security</h2>
+              <p>Security posture of your self-healing framework.</p>
+            </div>
+          </div>
+          <div class="two-col-grid">
+            <div class="panel">
+              <h3>Kill-chain & MITRE ATT&CK</h3>
+              <p class="placeholder-text">
+                Map attack patterns across discovery, lateral movement and
+                impact. Use this view in SOC war rooms to correlate events from
+                NeoSecure with SIEM data.
+              </p>
+            </div>
+            <div class="panel">
+              <h3>Policy Highlights</h3>
+              <p class="placeholder-text">
+                Show which services are in monitor vs. block mode, and which
+                protections are enforced for XSS, SQLi, RCE, traversal and
+                business logic abuse.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- MONITORING PAGE -->
+        <section class="page" id="page-monitoring">
+          <div class="page-header">
+            <div>
+              <h2>Monitoring</h2>
+              <p>Telemetry from agents, services and edge gateways.</p>
+            </div>
+          </div>
+          <div class="two-col-grid">
+            <div class="panel">
+              <h3>Latency & Error Rates</h3>
+              <p class="placeholder-text">
+                Visualize latency and HTTP error codes before and after
+                self-healing decisions to prove that security doesn’t break
+                reliability.
+              </p>
+            </div>
+            <div class="panel">
+              <h3>Agent Telemetry</h3>
+              <p class="placeholder-text">
+                Per-node health, missed heartbeats, and version drift across
+                agent fleets – suitable for SRE & platform teams.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- MANAGEMENT PAGE -->
+        <section class="page" id="page-management">
+          <div class="page-header">
+            <div>
+              <h2>Management</h2>
+              <p>Configure policies, integrations and tenants.</p>
+            </div>
+          </div>
+          <div class="two-col-grid">
+            <div class="panel">
+              <h3>Policies & Modes</h3>
+              <p class="placeholder-text">
+                Toggle self-healing between monitor, suggest and block modes
+                per service. Configure thresholds for attack ratio and anomaly
+                alerts.
+              </p>
+            </div>
+            <div class="panel">
+              <h3>Integrations</h3>
+              <p class="placeholder-text">
+                Webhooks to SIEM / SOAR (Splunk, QRadar, Wazuh, etc.), Slack
+                alerts, ticketing systems and CI/CD pipelines.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABOUT PAGE -->
+        <section class="page" id="page-about">
+          <div class="page-header">
+            <div>
+              <h2>About NeoSecure</h2>
+              <p>AI self-healing security framework built by Abuzer Sajid.</p>
+            </div>
+          </div>
+          <div class="about-grid">
+            <div class="panel">
+              <h3>What NeoSecure does</h3>
+              <p>
+                NeoSecure continuously inspects traffic, detects attacks such as
+                XSS, SQL injection and RCE, and autonomously applies safe fixes
+                or blocks the request before it reaches your core services.
+              </p>
+              <p>
+                The platform integrates with edge-WAF, API gateways, Kubernetes
+                ingress and microservices-based architectures.
+              </p>
+            </div>
+            <div class="panel">
+              <h3>About Abuzer</h3>
+              <p>
+                Cybersecurity Engineer with experience in Web/API testing, cloud
+                security, adversarial AI and SOC automation. Focused on
+                building practical self-healing security systems for modern
+                enterprises.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTACT PAGE -->
+        <section class="page" id="page-contact">
+          <div class="page-header">
+            <div>
+              <h2>Contact</h2>
+              <p>Get in touch to deploy NeoSecure in your environment.</p>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Contact details</h3>
+            <ul class="contact-list">
+              <li><strong>Name:</strong> Abuzer Sajid</li>
+              <li><strong>Role:</strong> Cybersecurity Engineer</li>
+              <li><strong>Phone:</strong> +91-96110-38535</li>
+              <li><strong>Email:</strong> abuzersajidahamadumri@gmail.com</li>
+              <li><strong>Location:</strong> Bengaluru, Karnataka, India</li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
