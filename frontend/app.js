@@ -1,5 +1,5 @@
 // === CONFIG ===
-const BACKEND_URL = "http://127.0.0.1:8000"; // change if needed
+const BACKEND_URL = "https://neosecure-enterprise.onrender.com"; // change if needed
 
 // === CLOCK ===
 function updateClock() {

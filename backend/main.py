@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from datetime import datetime
 import re
 import uuid
+import os
 
 app = FastAPI(title="NeoSecure AI Self-Healing Backend")
 
@@ -34,10 +36,7 @@ LAST_SYNC = None
 ATTACK_PATTERNS = {
     "xss": re.compile(r"(?:<script>|alert\(|onerror=|javascript:)", re.I),
     "sqli": re.compile(r"(?:union select|sleep\(| or 1=1| drop table)", re.I),
-
-    # COMPLETELY FIXED — was causing Render crash
     "rce": re.compile(r"(?:;\s*rm -rf|bash -c|system\(|exec\()", re.I),
-
     "lfi": re.compile(r"(?:\.\./\.\./|\.\./etc/passwd)", re.I),
     "ssrf": re.compile(r"(?:http://127\.0\.0\.1|169\.254\.169\.254)", re.I),
     "cmdi": re.compile(r"(?:;|&&|\\|%60)", re.I),
@@ -81,7 +80,6 @@ def classify_attack(payload: str):
         if pattern.search(payload):
             return attack
     return None
-
 
 def determine_decision(attack_type, patch_result):
     if patch_result:
@@ -175,9 +173,14 @@ async def get_alerts(limit: int = 50):
     return ALERTS[:limit]
 
 # ===============================================================
-# 8️⃣ ROOT ENDPOINT
+# 8️⃣ FRONTEND SERVE
 # ===============================================================
-@app.get("/")
-def home():
-    return {"message": "NeoSecure AI Self-Healing Backend Running"}
+frontend_path = os.path.join(os.path.dirname(__file__), "../frontend")
+app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
 
+# ===============================================================
+# 9️⃣ ROOT ENDPOINT
+# ===============================================================
+@app.get("/api")
+def api_home():
+    return {"message": "NeoSecure AI Self-Healing Backend Running"}
