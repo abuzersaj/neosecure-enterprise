@@ -3,7 +3,7 @@ import random
 import time
 import requests
 
-BACKEND = "http://127.0.0.1:8000"
+BACKEND = "https://neosecure-enterprise-1.onrender.com/"
 
 PATHS = ["/", "/login", "/search", "/api/users", "/admin", "/download"]
 METHODS = ["GET", "POST"]
